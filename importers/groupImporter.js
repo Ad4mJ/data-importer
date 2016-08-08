@@ -34,8 +34,9 @@ const add = (groups, amount, count, token) => {
                 add(groups, amount, count, token);
             });
     } else {
-        logger(`${amount} groups added!`);
+        logger(`${amount} Groups Added!`);
         addSearchingRoles(addedGroups, token);
+        addInterestFlags(addedGroups, token);
     }
 };
 
@@ -48,7 +49,21 @@ export const addSearchingRoles = (groupIds, token) => {
             .set('Authorization', 'Bearer ' + token)
             .send(config.groupSearchPayLoad)
             .end((err, { body }) => {
-                logger('Group Searching roles added!');
+                logger('Group Searching Roles Added!');
+            });
+    });
+};
+
+export const addInterestFlags = (groupIds, token) => {
+    groupIds = groupIds ? groupIds : config.groupIds;
+    forEach(groupIds, (id) => {
+        request.put(config.setFlagsSearch(id))
+            .set('Content-Type', 'application/json')
+            .set('Rezi-Api-Version', '1.0')
+            .set('Authorization', 'Bearer ' + token)
+            .send(config.interestFlagsPayLoad)
+            .end((err, { body }) => {
+                logger('Group Interest Flags added!');
             });
     });
 };

@@ -20,6 +20,6 @@ module.exports = {
         }]
     },
     plugins: [
-        //new webpack.optimize.UglifyJsPlugin({ minimize: false, compress: { warnings: false } })
+        new webpack.optimize.UglifyJsPlugin({ minimize: false, compress: { warnings: false } })
     ]
 };
